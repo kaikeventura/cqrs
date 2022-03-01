@@ -8,7 +8,7 @@ import java.util.Properties;
 @SpringBootApplication
 public class CqrsApplication {
 
-	public final static String MODEL_PACKAGE = "com.kaikeventura.cqrs.model";
+	public final static String MODEL_PACKAGE = "com.kaikeventura.cqrs.product.adapters.outbound.persistence.entity";
 
 	public final static Properties JPA_PROPERTIES = new Properties() {{
 		put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
