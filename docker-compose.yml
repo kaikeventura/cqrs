@@ -2,6 +2,7 @@ version: "3"
 
 services:
   mysql-master:
+    container_name: mysql-master
     image: docker.io/bitnami/mysql:8.0
     ports:
       - "3306:3306"
@@ -13,14 +14,17 @@ services:
       - MYSQL_USER=my_user
       - MYSQL_DATABASE=cqrs
       - ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_ROOT_PASSWORD=my_root_password
+      - MYSQL_ROOT_PASSWORD=root
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mysql/healthcheck.sh']
       interval: 15s
       timeout: 5s
       retries: 6
+    networks:
+      - bubble
 
   mysql-slave:
+    container_name: mysql-slave
     image: docker.io/bitnami/mysql:8.0
     ports:
       - "3307:3306"
@@ -33,14 +37,34 @@ services:
       - MYSQL_DATABASE=cqrs
       - MYSQL_MASTER_HOST=mysql-master
       - MYSQL_MASTER_PORT_NUMBER=3306
-      - MYSQL_MASTER_ROOT_PASSWORD=my_root_password
+      - MYSQL_MASTER_ROOT_PASSWORD=root
       - ALLOW_EMPTY_PASSWORD=yes
     healthcheck:
       test: ['CMD', '/opt/bitnami/scripts/mysql/healthcheck.sh']
       interval: 15s
       timeout: 5s
       retries: 6
+    networks:
+      - bubble
+
+  cqrs-api:
+    container_name: cqrs-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: cqrs
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql-slave:
+        condition: service_healthy
+    networks:
+      - bubble
 
 volumes:
   mysql_master_data:
     driver: local
+
+networks:
+  bubble:
+    external: true

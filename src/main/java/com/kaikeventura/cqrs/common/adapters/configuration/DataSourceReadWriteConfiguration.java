@@ -4,6 +4,7 @@ import com.kaikeventura.cqrs.product.adapters.outbound.persistence.cqrs.annotati
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,6 +35,7 @@ public class DataSourceReadWriteConfiguration extends HikariConfig {
     public final static String PERSISTENCE_UNIT_NAME = "write";
 
     @Bean
+    @FlywayDataSource
     public HikariDataSource dataSourceWrite() {
         return new HikariDataSource(this);
     }

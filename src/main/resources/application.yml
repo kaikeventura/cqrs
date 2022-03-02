@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     jdbc-url: jdbc:mysql://localhost:3306/cqrs
     username: root
-    password: my_root_password
+    password: root
     platform: mysql
     hikari:
       idle-timeout: 10000
@@ -15,7 +15,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     jdbc-url: jdbc:mysql://localhost:3307/cqrs
     username: root
-    password: my_root_password
+    password: root
     platform: mysql
     hikari:
       idle-timeout: 10000

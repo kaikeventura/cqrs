@@ -12,9 +12,6 @@ public class CqrsApplication {
 
 	public final static Properties JPA_PROPERTIES = new Properties() {{
 		put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-		put("hibernate.hbm2ddl.auto", "update");
-		put("hibernate.ddl-auto", "update");
-		put("show-sql", "true");
 	}};
 
 	public static void main(String[] args) {
